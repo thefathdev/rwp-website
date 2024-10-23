@@ -1,0 +1,57 @@
+---
+import "@fontsource-variable/bricolage-grotesque";
+import Navbar from "../components/navbar.astro";
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Astro</title>
+
+        <style>
+            body {
+                font-family: "Bricolage Grotesque Variable", sans-serif;
+            }
+            html.lenis {
+                height: auto;
+            }
+
+            .lenis.lenis-smooth {
+                scroll-behavior: auto;
+            }
+
+            .lenis.lenis-smooth [data-lenis-prevent] {
+                overscroll-behavior: contain;
+            }
+
+            .lenis.lenis-stopped {
+                overflow: hidden;
+            }
+
+            .lenis.lenis-scrolling iframe {
+                pointer-events: none;
+            }
+        </style>
+    </head>
+    <body class="bg-white text-black">
+        <Navbar />
+        <slot />
+        <script>
+            import { initSmoothScroll } from "../utils/smooth-scroll";
+
+            // Initialize on page load
+            document.addEventListener("DOMContentLoaded", () => {
+                initSmoothScroll();
+            });
+
+            // Re-initialize on view transitions
+            document.addEventListener("astro:page-load", () => {
+                initSmoothScroll();
+            });
+        </script>
+    </body>
+</html>

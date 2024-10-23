@@ -1,0 +1,44 @@
+---
+const links = [
+    {
+        label: "About Us",
+        href: "#about-us",
+    },
+    {
+        label: "Events",
+        href: "#events",
+    },
+    {
+        label: "Gallery",
+        href: "#gallery",
+    },
+    {
+        label: "Articles",
+        href: "#articles",
+    },
+];
+---
+
+<nav class="fixed top-0 z-50 inset-x-0 mix-blend-difference text-white">
+    <div
+        class="mx-auto w-full max-w-screen-xl px-3 sm:px-6 flex justify-between items-center py-6"
+    >
+        <img width={95} height={30} src="/logo.png" class="relative invert" />
+
+        <div class="flex gap-5 items-center">
+            {
+                links.map(({ label, href }) => (
+                    <a href={href} class="font-light text-sm">
+                        {label}
+                    </a>
+                ))
+            }
+        </div>
+
+        <a
+            href="/"
+            class="text-sm leading-normal bg-white text-black font-semibold rounded-full py-1 px-3"
+            >Join us</a
+        >
+    </div>
+</nav>
