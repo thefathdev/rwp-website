@@ -1,44 +1,54 @@
 ---
 const links = [
-    {
-        label: "About Us",
-        href: "#about-us",
-    },
-    {
-        label: "Events",
-        href: "#events",
-    },
-    {
-        label: "Gallery",
-        href: "#gallery",
-    },
-    {
-        label: "Articles",
-        href: "#articles",
-    },
+  {
+    label: "About Us",
+    href: "#about-us",
+  },
+  {
+    label: "Events",
+    href: "#events",
+  },
+  {
+    label: "Gallery",
+    href: "#gallery",
+  },
+  {
+    label: "Articles",
+    href: "#articles",
+  },
 ];
 ---
 
-<nav class="fixed top-0 z-50 inset-x-0 mix-blend-difference text-white">
-    <div
-        class="mx-auto w-full max-w-screen-xl px-3 sm:px-6 flex justify-between items-center py-6"
-    >
-        <img width={95} height={30} src="/logo.png" class="relative invert" />
+<nav class="fixed top-0 z-50 inset-x-0">
+  <div class="container-grid pt-6 items-center">
+    <img width={95} height={30} src="/logo.webp" class="relative" />
 
-        <div class="flex gap-5 items-center">
-            {
-                links.map(({ label, href }) => (
-                    <a href={href} class="font-light text-sm">
-                        {label}
-                    </a>
-                ))
-            }
-        </div>
+    <span class="text-sm font-light">Pontianak, Indonesia</span>
 
-        <a
-            href="/"
-            class="text-sm leading-normal bg-white text-black font-semibold rounded-full py-1 px-3"
-            >Join us</a
-        >
+    <div class="flex gap-3 items-center">
+      <button class="text-sm font-light">☀️</button>
+      <button class="text-sm font-light saturate-0 hover:saturate-100"
+        >🌙</button
+      >
     </div>
+
+    <div class="col-start-5 col-span-2 flex items-center gap-6 justify-end">
+      <div class="flex gap-5 items-center">
+        {
+          links.map(({ label, href }) => (
+            <a href={href} class="font-light text-sm">
+              {label}
+            </a>
+          ))
+        }
+      </div>
+      <div class="flex justify-end flex-none">
+        <a
+          href="/"
+          class="text-sm leading-normal bg-foreground text-background font-semibold rounded-full py-1 px-3"
+          >Join us</a
+        >
+      </div>
+    </div>
+  </div>
 </nav>

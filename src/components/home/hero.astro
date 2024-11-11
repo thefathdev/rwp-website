@@ -1,90 +1,29 @@
-<section
-    class="mx-auto sticky top-0 w-full max-w-screen-xl px-3 sm:px-6 h-[100svh] flex flex-col items-center justify-center gap-8"
->
-    <div
-        class="font-semibold leading-[0.95] -tracking-[0.01em] text-[90px] text-center"
-        style={{
-            textShadow:
-                "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000",
-        }}
-    >
-        A <span class="text-white">Collaborative</span>
-        <span class="inline-block relative"
-            >Circle
-            <svg
-                width="200"
-                height="82"
-                viewBox="0 0 200 82"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="absolute top-1/2 -translate-y-1/2 right-1/2 translate-x-1/2"
-            >
-                <path
-                    class="animated-path"
-                    d="M199.115 40.9344C199.115 18.8793 154.725 1 99.9672 1C45.2096 1 0.819702 18.8793 0.819702 40.9344C0.819702 62.9896 45.2096 80.8689 99.9672 80.8689C143.364 80.8689 180.25 69.6387 193.687 54"
-                    stroke="black"
-                    stroke-width="1.5"></path>
-            </svg>
-        </span>
-        <br /> for All Remote Workers <br /> in <span class="text-white"
-            >Pontianak</span
-        >
-    </div>
+---
+import { Image } from "astro:assets";
+import heroImage from "../../images/hero.png";
+---
 
-    <button
-        class="text-[2rem] leading-normal px-15 py-5 rounded-full border border-black font-semibold"
+<main class="container-grid h-[100svh] w-full sticky top-0 overflow-hidden">
+  <div class="pt-32 flex flex-col relative z-10 gap-8 col-start-2 col-span-4">
+    <h1 class="heading-1">
+      A <span class="composition">Collaborative </span>
+      Circle <br /> for All Remote Workers <br /> in <span class="composition"
+        >Pontianak</span
+      >
+    </h1>
+    <div>
+      <button
+        class="border border-foreground rounded-full px-15 py-5 font-semibold w-fit text-[2rem] leading-normal"
         >Let's connect</button
+      >
+    </div>
+  </div>
+  <div class="absolute inset-0 container-grid items-end">
+    <!-- Image Card -->
+    <div
+      class="col-start-3 aspect-[8/5] bg-white translate-y-1/2 col-span-3 p-2"
     >
-
-    <span class="absolute bottom-6 font-light text-sm"
-        >Scroll down to see more</span
-    >
-</section>
-
-<script>
-    import gsap from "gsap";
-
-    const pathAnimation = () => {
-        const path = document.querySelector(".animated-path") as SVGPathElement;
-
-        // Get the total length of the path
-        const pathLength = path.getTotalLength();
-
-        console.log("pathLength: ", pathLength);
-        // Set initial state
-        gsap.set(path, {
-            strokeDasharray: pathLength,
-            strokeDashoffset: pathLength,
-            opacity: 1,
-        });
-
-        // Create a GSAP timeline
-        const tl = gsap.timeline({
-            repeat: -1, // Repeat indefinitely
-            repeatDelay: 0.3, // Optional: add a small delay between each loop
-        });
-
-        // Add animations to the timeline
-        tl.to(path, {
-            strokeDashoffset: 0,
-            duration: 1,
-            ease: "power1.inOut",
-        })
-            .to(path, {
-                strokeDashoffset: -pathLength,
-                duration: 1,
-                ease: "power1.inOut",
-            })
-            .to(path, {
-                opacity: 0,
-                duration: 0.2,
-                ease: "power1.in",
-            })
-            .set(path, {
-                strokeDashoffset: pathLength,
-                opacity: 1,
-            });
-    };
-
-    pathAnimation();
-</script>
+      <Image src={heroImage} width={"900"} class="aspect-[8/5] w-full" alt="" />
+    </div>
+  </div>
+</main>
