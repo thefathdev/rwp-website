@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import heroImage from "../../images/hero.png";
+---
+
+<div
+  id="image-card"
+  class="col-start-3 aspect-[8/5] bg-white translate-y-1/2 col-span-3 p-2"
+>
+  <Image
+    src={heroImage}
+    width={"900"}
+    class="aspect-[8/5] w-full"
+    alt="Hero image"
+  />
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  // First animation (0-50% scroll)
+  gsap.to("#image-card", {
+    y: "-50%",
+    rotation: 0,
+    scale: 1,
+    ease: "power1.out",
+    scrollTrigger: {
+      trigger: "#hero",
+      start: "top top",
+      end: "50% top",
+      scrub: 1,
+    },
+  });
+
+  // Second animation (50-100% scroll)
+  gsap.to("#image-card", {
+    rotation: 15,
+    scale: 0.7,
+    ease: "power1.out",
+    scrollTrigger: {
+      trigger: "#hero",
+      start: "50% top",
+      end: "bottom top",
+      scrub: 1,
+    },
+  });
+</script>

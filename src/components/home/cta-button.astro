@@ -1,0 +1,101 @@
+---
+// AnimatedButton.astro
+---
+
+<div class="button-container">
+  <button
+    class="animated-button border border-foreground rounded-full px-15 py-5 font-semibold w-fit text-[2rem] leading-normal relative overflow-hidden"
+  >
+    <span class="relative z-10"> Let's connect </span>
+    <span
+      class="dot absolute bg-foreground rounded-full pointer-events-none left-0 top-0"
+    ></span>
+  </button>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  function setupButtonAnimation() {
+    const buttons = document.querySelectorAll(".animated-button");
+
+    buttons.forEach((button) => {
+      const dot = button.querySelector(".dot");
+      let isHovering = false;
+      let tl = gsap.timeline({ paused: true });
+
+      // Set initial size of the dot
+      gsap.set(dot, { width: "10px", height: "10px" });
+
+      tl.to(dot, {
+        scale: 75,
+        duration: 0.5,
+        opacity: 1,
+        ease: "power2.in",
+      });
+
+      const animateButton = (e) => {
+        // Use offsetX and offsetY for position relative to the button
+        const x = e.offsetX;
+        const y = e.offsetY;
+
+        gsap.to(dot, {
+          x,
+          y,
+          duration: 0.2,
+          ease: "power2.in",
+        });
+
+        if (!isHovering) {
+          isHovering = true;
+          gsap.set(dot, { opacity: 1 });
+          tl.restart();
+        }
+      };
+
+      button.addEventListener("mouseenter", animateButton);
+      button.addEventListener("mousemove", animateButton);
+
+      button.addEventListener("mouseleave", () => {
+        isHovering = false;
+        tl.reverse();
+        gsap.to(dot, {
+          duration: 0.75,
+          scale: 1,
+          ease: "power2.out",
+        });
+        gsap.set(dot, {
+          opacity: 0,
+          delay: 0.5,
+        });
+      });
+    });
+  }
+
+  // Run the setup immediately for static pages
+  setupButtonAnimation();
+
+  // Also run the setup when Astro swaps pages
+  document.addEventListener("astro:page-load", setupButtonAnimation);
+</script>
+
+<style>
+  .button-container {
+    /* Add any additional styles for the container */
+  }
+
+  .animated-button {
+    transition: color 0.4s ease-in;
+  }
+
+  .animated-button:hover {
+    color: var(
+      --background-color,
+      #ffffff
+    ); /* Set this to your background color */
+  }
+
+  .dot {
+    transform-origin: center;
+  }
+</style>

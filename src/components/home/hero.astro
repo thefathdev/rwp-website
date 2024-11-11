@@ -1,29 +1,76 @@
 ---
-import { Image } from "astro:assets";
-import heroImage from "../../images/hero.png";
+import HeroImageCard from "./hero-image-card.astro";
+import CtaButton from "./cta-button.astro";
 ---
 
-<main class="container-grid h-[100svh] w-full sticky top-0 overflow-hidden">
+<main
+  id="hero"
+  class="container-grid h-[100svh] w-full sticky top-0 overflow-hidden"
+>
   <div class="pt-32 flex flex-col relative z-10 gap-8 col-start-2 col-span-4">
-    <h1 class="heading-1">
-      A <span class="composition">Collaborative </span>
-      Circle <br /> for All Remote Workers <br /> in <span class="composition"
-        >Pontianak</span
+    <h1 class="heading-1 inline-block animated-heading">
+      A <span class="composition mx-3">Collaborative</span>
+      Circle <br /> for All Remote Workers <br /> in <span
+        class="composition mx-3">Pontianak</span
       >
     </h1>
-    <div>
-      <button
-        class="border border-foreground rounded-full px-15 py-5 font-semibold w-fit text-[2rem] leading-normal"
-        >Let's connect</button
-      >
-    </div>
+    <CtaButton />
   </div>
   <div class="absolute inset-0 container-grid items-end">
-    <!-- Image Card -->
-    <div
-      class="col-start-3 aspect-[8/5] bg-white translate-y-1/2 col-span-3 p-2"
-    >
-      <Image src={heroImage} width={"900"} class="aspect-[8/5] w-full" alt="" />
-    </div>
+    <HeroImageCard />
   </div>
 </main>
+<script>
+  import { gsap } from "gsap";
+
+  function wrapWordsInSpans(element) {
+    // Process text nodes only, preserving existing spans
+    const walker = document.createTreeWalker(
+      element,
+      NodeFilter.SHOW_TEXT,
+      null,
+    );
+
+    const textNodes = [];
+    while (walker.nextNode()) {
+      textNodes.push(walker.currentNode);
+    }
+
+    textNodes.forEach((textNode) => {
+      const words = textNode.textContent.trim().split(/\s+/);
+      const spans = words
+        .map(
+          (word) =>
+            `<span class="word inline-block origin-top-left">${word}</span>`,
+        )
+        .join(" ");
+
+      const wrapper = document.createElement("span");
+      wrapper.innerHTML = spans;
+      textNode.parentNode.replaceChild(wrapper, textNode);
+    });
+  }
+
+  const heading = document.querySelector(".animated-heading");
+  if (heading) {
+    wrapWordsInSpans(heading);
+
+    gsap.from(heading.querySelectorAll(".word"), {
+      opacity: 0,
+      y: 35,
+      rotate: 4,
+      duration: 0.5,
+      stagger: {
+        each: 0.1,
+        amount: 0.6,
+      },
+      ease: "power2.out",
+    });
+  }
+</script>
+<style>
+  .animated-heading .word {
+    display: inline-block;
+    margin-right: 0.25em;
+  }
+</style>
