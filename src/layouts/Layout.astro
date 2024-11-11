@@ -40,7 +40,7 @@ import "../styles/global.css";
       }
     </style>
   </head>
-  <body class="bg-background text-foreground relative">
+  <body class="bg-background text-foreground relative transition-colors">
     <!-- Background -->
     <div class="fixed inset-0 container-grid opacity-20">
       <div class="border-r border-foreground w-full h-[100dvh]"></div>
@@ -54,6 +54,24 @@ import "../styles/global.css";
     <slot />
     <script>
       import { initSmoothScroll } from "../utils/smooth-scroll";
+
+      import { theme } from "../stores/theme-store";
+
+      function applyThemeClass(themeValue) {
+        console.log("applyTheme, theme value: ", themeValue);
+        if (themeValue === "night") {
+          document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
+        }
+      }
+
+      applyThemeClass(theme.get());
+
+      // Listen for theme changes and update the body class
+      theme.subscribe((newTheme) => {
+        applyThemeClass(newTheme);
+      });
 
       // Initialize on page load
       document.addEventListener("DOMContentLoaded", () => {

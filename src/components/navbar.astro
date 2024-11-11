@@ -21,13 +21,23 @@ const links = [
 
 <nav class="fixed top-0 z-50 inset-x-0">
   <div class="container-grid pt-6 items-center">
-    <img width={95} height={30} src="/logo.webp" class="relative" />
+    <img width={95} height={30} src="/logo.webp" class="relative dark:hidden" />
+    <img
+      width={95}
+      height={30}
+      src="/logo-dark.webp"
+      class="relative hidden dark:block"
+    />
 
     <span class="text-sm font-light">Pontianak, Indonesia</span>
 
     <div class="flex gap-3 items-center">
-      <button class="text-sm font-light">☀️</button>
-      <button class="text-sm font-light saturate-0 hover:saturate-100"
+      <button
+        class="text-sm font-light day-toggler dark:hover:saturate-100 dark:saturate-0"
+        >☀️</button
+      >
+      <button
+        class="text-sm font-light saturate-0 night-toggler hover:saturate-100 dark:saturate-100"
         >🌙</button
       >
     </div>
@@ -52,3 +62,14 @@ const links = [
     </div>
   </div>
 </nav>
+
+<script>
+  import { setTheme } from "../stores/theme-store.js";
+
+  document.querySelector(".day-toggler").addEventListener("click", () => {
+    setTheme("day");
+  });
+  document.querySelector(".night-toggler").addEventListener("click", () => {
+    setTheme("night");
+  });
+</script>
